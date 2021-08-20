@@ -27,10 +27,21 @@ namespace HelloShop
         {
             services.AddControllersWithViews();
             //Conexión DB
+
+            /*
+             * Conexión SQl Server
             var conexion = Configuration["ConnectionStrings:SqlServer"]; //Cadena de conexión
                 services.AddDbContext<AppDbContext>(option =>
                 option.UseSqlServer(conexion)
             );
+            */
+            
+            // Conexión MYSQL
+            var conexion = Configuration["ConnectionStrings:MySql"]; //Cadena de conexión
+                services.AddDbContext<AppDbContext>(option =>
+                option.UseMySql(conexion, ServerVersion.AutoDetect(conexion))
+            );
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +68,7 @@ namespace HelloShop
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Clientes}/{action=Index}/{id?}");
             });
         }
     }
