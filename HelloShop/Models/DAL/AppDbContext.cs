@@ -1,4 +1,4 @@
-﻿using HelloShop.Models.Models;
+﻿using HelloShop.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HelloShop.Models.Models
+namespace HelloShop.Models.Entities
 {
     public class Cliente
     {
@@ -17,17 +17,19 @@ namespace HelloShop.Models.Models
 
         [Required(ErrorMessage ="El email es requerido")]
         [EmailAddress(ErrorMessage = "El email es inválido")]
-        public string Email { get; set; }
-
-        [Display(Name = "Tipo de documento")]
-        [Required(ErrorMessage = "El tipo de documento es requerido")]
-        public int TipoDocumentoId { get; set; }
+        public string Email { get; set; }        
 
 
         [Required(ErrorMessage = "El documento es requerido")]
         [Range(9999, 999999999999999, ErrorMessage = "Documento inválido")]
         public string Documento { get; set; }
-
         public bool Estado { get; set; }
+
+
+        [Display(Name = "Tipo de documento")]
+        [Required(ErrorMessage = "El tipo de documento es requerido")]
+        public int TipoDocumentoId { get; set; }
+
+        public virtual TipoDocumento TipoDocumento { get; set; }
     }
 }

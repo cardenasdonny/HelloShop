@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace HelloShop.Migrations
+namespace HelloShop.WEB.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -16,7 +16,7 @@ namespace HelloShop.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.9");
 
-            modelBuilder.Entity("HelloShop.Models.Models.Cliente", b =>
+            modelBuilder.Entity("HelloShop.Models.Entities.Cliente", b =>
                 {
                     b.Property<int>("ClienteId")
                         .ValueGeneratedOnAdd()
@@ -43,10 +43,12 @@ namespace HelloShop.Migrations
 
                     b.HasKey("ClienteId");
 
+                    b.HasIndex("TipoDocumentoId");
+
                     b.ToTable("Clientes");
                 });
 
-            modelBuilder.Entity("HelloShop.Models.Models.TipoDocumento", b =>
+            modelBuilder.Entity("HelloShop.Models.Entities.TipoDocumento", b =>
                 {
                     b.Property<int>("TipoDocumentoId")
                         .ValueGeneratedOnAdd()
@@ -58,6 +60,22 @@ namespace HelloShop.Migrations
                     b.HasKey("TipoDocumentoId");
 
                     b.ToTable("TiposDocumento");
+                });
+
+            modelBuilder.Entity("HelloShop.Models.Entities.Cliente", b =>
+                {
+                    b.HasOne("HelloShop.Models.Entities.TipoDocumento", "TipoDocumento")
+                        .WithMany("Clientes")
+                        .HasForeignKey("TipoDocumentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TipoDocumento");
+                });
+
+            modelBuilder.Entity("HelloShop.Models.Entities.TipoDocumento", b =>
+                {
+                    b.Navigation("Clientes");
                 });
 #pragma warning restore 612, 618
         }

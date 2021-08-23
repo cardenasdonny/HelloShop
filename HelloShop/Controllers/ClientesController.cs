@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HelloShop.Models.DAL;
-using HelloShop.Models.Models;
+using HelloShop.Models.Entities;
 
 namespace HelloShop.Controllers
 {
@@ -23,7 +23,7 @@ namespace HelloShop.Controllers
         
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Clientes.ToListAsync());
+            return View(await _context.Clientes.Include(x=>x.TipoDocumento).ToListAsync());
         }
 
         // GET: Clientes/Details/5

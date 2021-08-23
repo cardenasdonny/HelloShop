@@ -1,13 +1,14 @@
-﻿@model IEnumerable<HelloShop.Models.Models.Cliente>
+﻿@model IEnumerable<HelloShop.Models.Entities.Cliente>
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
+<br />
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-success" asp-action="Create"> Crear nuevo <i class="fas fa-user-plus"></i></a>
 </p>
 <table class="table">
     <thead>
@@ -19,13 +20,13 @@
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TipoDocumentoId)
+                @Html.DisplayNameFor(model => model.TipoDocumento.Nombre)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Documento)
             </th>
             <th>Estado</th>
-            <th></th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -38,7 +39,7 @@
                 @cliente.Email
             </td>
             <td>
-                @cliente.TipoDocumentoId
+                @cliente.TipoDocumento.Nombre
             </td>
             <td>
                 @cliente.Documento
@@ -56,9 +57,9 @@
 
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@cliente.ClienteId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@cliente.ClienteId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@cliente.ClienteId">Delete</a>
+                <a class="text-success" asp-action="Edit" asp-route-id="@cliente.ClienteId"><i title="Editar" class="fas fa-user-edit"></i></a> |
+                <a  asp-action="Details" asp-route-id="@cliente.ClienteId"><i title="Detalle" class="fas fa-search"></i></a> |
+                <a class="text-danger" asp-action="Delete" asp-route-id="@cliente.ClienteId"><i title="Eliminar" class="fas fa-trash-alt"></i></a>
             </td>
         </tr>
 }

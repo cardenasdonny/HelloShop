@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "font-awesome@5.15.4",
+      "destination": "wwwroot/lib/font-awesome/",
+      "files": [
+        "js/all.min.js",
+        "js/conflict-detection.min.js",
+        "webfonts/fa-brands-400.ttf",
+        "css/brands.min.css",
+        "webfonts/fa-brands-400.eot",
+        "css/fontawesome.min.css",
+        "js/brands.min.js",
+        "css/regular.min.css",
+        "webfonts/fa-brands-400.svg",
+        "css/solid.min.css",
+        "css/all.min.css",
+        "css/svg-with-js.min.css",
+        "js/brands.js",
+        "css/v4-shims.min.css",
+        "js/fontawesome.min.js",
+        "sprites/solid.svg",
+        "js/regular.min.js",
+        "sprites/regular.svg",
+        "js/solid.min.js",
+        "sprites/brands.svg",
+        "js/v4-shims.min.js",
+        "webfonts/fa-brands-400.woff",
+        "webfonts/fa-regular-400.eot",
+        "webfonts/fa-regular-400.svg",
+        "webfonts/fa-regular-400.ttf",
+        "webfonts/fa-regular-400.woff",
+        "webfonts/fa-solid-900.eot",
+        "webfonts/fa-solid-900.svg",
+        "webfonts/fa-solid-900.ttf",
+        "webfonts/fa-solid-900.woff"
+      ]
+    }
+  ]
+}

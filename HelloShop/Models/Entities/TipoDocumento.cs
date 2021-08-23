@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HelloShop.Models.Models
+namespace HelloShop.Models.Entities
 {
     public class TipoDocumento
     {
         public int TipoDocumentoId { get; set; }
         public string Nombre { get; set; }
+
+        public virtual List<Cliente> Clientes { get; set; }
     }
 }
