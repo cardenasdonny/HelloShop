@@ -1,4 +1,6 @@
 using HelloShop.Models.DAL;
+using HelloShop.WEB.Models.Abstract;
+using HelloShop.WEB.Models.Business;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -41,6 +43,8 @@ namespace HelloShop
                 services.AddDbContext<AppDbContext>(option =>
                 option.UseMySql(conexion, ServerVersion.AutoDetect(conexion))
             );
+
+            services.AddScoped<IClienteBusiness, ClienteBusiness>();
             
         }
 
