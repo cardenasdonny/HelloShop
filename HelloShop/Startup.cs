@@ -1,6 +1,6 @@
-using HelloShop.Models.DAL;
-using HelloShop.WEB.Models.Abstract;
-using HelloShop.WEB.Models.Business;
+using HelloShop.Business.Abstract;
+using HelloShop.Business.Business;
+using HelloShop.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,19 +30,21 @@ namespace HelloShop
             services.AddControllersWithViews();
             //Conexión DB
 
-            /*
-             * Conexión SQl Server
+            
+            //Conexión SQl Server
             var conexion = Configuration["ConnectionStrings:SqlServer"]; //Cadena de conexión
                 services.AddDbContext<AppDbContext>(option =>
                 option.UseSqlServer(conexion)
             );
-            */
+            
+            /*
             
             // Conexión MYSQL
             var conexion = Configuration["ConnectionStrings:MySql"]; //Cadena de conexión
                 services.AddDbContext<AppDbContext>(option =>
                 option.UseMySql(conexion, ServerVersion.AutoDetect(conexion))
             );
+            */
 
             services.AddScoped<IClienteBusiness, ClienteBusiness>();
             

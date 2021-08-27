@@ -1,8 +1,5 @@
-﻿using HelloShop.Models.DAL;
-using HelloShop.WEB.Models.Abstract;
-using HelloShop.WEB.Models.Business;
+﻿using HelloShop.Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +16,7 @@ namespace HelloShop.WEB.Controllers
             _clienteBusiness = clienteBusiness;
         }
         public async Task<IActionResult> Index()
-        {
-            _clienteBusiness.
+        {           
             return View(await _clienteBusiness.ObtenerClientes());
         }
     }
