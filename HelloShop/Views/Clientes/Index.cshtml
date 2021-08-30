@@ -1,67 +1,98 @@
 ﻿@model IEnumerable<HelloShop.Models.Entities.Cliente>
+@section Styles{
+
+}
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-<br />
+<div class="content">
+    <div class="container-fluid">
+        <div class="table-responsive">
+            <div>
+                <br />
+                <h2><b>@ViewBag.Titulo</b></h2>
+            </div>
 
-<p>
-    <a class="btn btn-success" asp-action="Create"> Crear nuevo <i class="fas fa-user-plus"></i></a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombres)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoDocumento.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Documento)
-            </th>
-            <th>Estado</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var cliente in Model) {
-        <tr>
-            <td>
-                @cliente.Nombres
-            </td>
-            <td>
-                @cliente.Email
-            </td>
-            <td>
-                @cliente.TipoDocumento.Nombre
-            </td>
-            <td>
-                @cliente.Documento
-            </td>
-            <td>
-                @if (cliente.Estado)
-                {
+            <div>
+                <a class="btn btn-success" asp-action="Crear"> Crear nuevo <i class="fas fa-user-plus"></i></a>
+            </div>
+            <br />
+            <table class="table" id="tabla">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nombres)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TipoDocumento.Nombre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Documento)
+                        </th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cliente in Model)
+                    {
+                        <tr>
+                            <td>
+                                @cliente.Nombres
+                            </td>
+                            <td>
+                                @cliente.Email
+                            </td>
+                            <td>
+                                @cliente.TipoDocumento.Nombre
+                            </td>
+                            <td>
+                                @cliente.Documento
+                            </td>
+                            <td>
+                                @if (cliente.Estado)
+                                {
 
-                    <span class="badge badge-primary">Activo</span>
-                }
-                else
-                {
-                    <span class="badge badge-danger">Deshabilitado</span>
-                }
+                                    <span class="badge badge-primary">Activo</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">Deshabilitado</span>
+                                }
 
-            </td>
-            <td>
-                <a class="text-success" asp-action="Edit" asp-route-id="@cliente.ClienteId"><i title="Editar" class="fas fa-user-edit"></i></a> |
-                <a  asp-action="Details" asp-route-id="@cliente.ClienteId"><i title="Detalle" class="fas fa-search"></i></a> |
-                <a class="text-danger" asp-action="Delete" asp-route-id="@cliente.ClienteId"><i title="Eliminar" class="fas fa-trash-alt"></i></a>
-            </td>
-        </tr>
+                            </td>
+                            <td>
+                                <a class="text-success" asp-action="Edit" asp-route-id="@cliente.ClienteId"><i title="Editar" class="fas fa-user-edit"></i></a> |
+                                <a asp-action="Details" asp-route-id="@cliente.ClienteId"><i title="Detalle" class="fas fa-search"></i></a> |
+                                <a class="text-danger" asp-action="Delete" asp-route-id="@cliente.ClienteId"><i title="Eliminar" class="fas fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+
+    <script src="~/js/tabla.js"></script>
+    <script>
+        @if(TempData["Accion"]!=null && TempData["Accion"].ToString().Equals("Guardar"))
+        {
+            <text>
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('@TempData["Mensaje"]');
+            
+            </text>
+        }
+    </script>
+
 }
-    </tbody>
-</table>
+
+
+

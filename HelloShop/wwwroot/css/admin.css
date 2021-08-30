@@ -1,0 +1,14 @@
+﻿.main-header {
+    background-color: #343a40 !important;
+}
+.navbar-nav > li > a > i {
+    color: white !important;
+}
+
+.navbar-nav {
+    color: white !important;
+}
+
+    .navbar-nav > li > a {
+        color: white !important;
+    }

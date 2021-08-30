@@ -47,7 +47,8 @@ namespace HelloShop
             */
 
             services.AddScoped<IClienteBusiness, ClienteBusiness>();
-            
+            services.AddScoped<ITipoDocumentoBusiness, TipoDocumentoBusiness>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

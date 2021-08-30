@@ -29,5 +29,16 @@ namespace HelloShop.Business.Business
             return await _context.Clientes.Include(x => x.TipoDocumento).Where(x => x.TipoDocumentoId == tipoDocumento).ToListAsync();
         }
 
+        public void Crear (Cliente cliente){
+            if (cliente == null)
+                throw new ArgumentNullException(nameof(cliente));
+            cliente.Estado = true;
+            _context.Add(cliente);
+        }
+        public async Task<bool> GuardarCambios()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
+
     }
 }

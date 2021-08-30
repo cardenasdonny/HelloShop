@@ -1,16 +1,13 @@
 ﻿@model HelloShop.Models.Entities.Cliente
 
-@{
-    ViewData["Title"] = "Create";
-}
 
-<h1>Create</h1>
 
-<h4>Cliente</h4>
+<h1>@ViewBag.titulo</h1>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" autocomplete="off">
+        <form id="formulario" asp-action="Crear" autocomplete="off">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Nombres" class="control-label"></label>
@@ -24,7 +21,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="TipoDocumentoId" class="control-label"></label>
-                <input asp-for="TipoDocumentoId" class="form-control" />
+                <select asp-items="@ViewBag.TiposDocumento" asp-for="TipoDocumentoId" class="form-control">
+                    <option disabled>--- Seleccione ---</option>
+                </select>
                 <span asp-validation-for="TipoDocumentoId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -32,13 +31,9 @@
                 <input asp-for="Documento" class="form-control" />
                 <span asp-validation-for="Documento" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" id="submit-all" />
             </div>
         </form>
     </div>
@@ -49,5 +44,27 @@
 </div>
 
 @section Scripts {
+
+    <script>
+    @if (TempData["Accion"] != null && TempData["Accion"].ToString().Equals("Validacion"))
+    {
+        <text>
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.warning('@TempData["Mensaje"]');
+
+        </text>
+    }
+    </script>
+    <script>
+        var submitButton = document.querySelector("#submit-all");
+        submitButton.addEventListener("click", function () {
+
+        if (!$("#formulario").valid()) { //check if form is valid using model annotation
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.warning('Debe ingresar todos los campos');
+            }
+        });
+    </script>
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
