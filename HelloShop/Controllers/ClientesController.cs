@@ -60,5 +60,31 @@ namespace HelloShop.WEB.Controllers
             ViewBag.TiposDocumento = new SelectList(await _tipoDocumentoBusiness.ObtenerTiposDocumento(), "TipoDocumentoId", "Nombre");
             return View(cliente);
         }
+
+        public async Task<IActionResult> Detalle(int ? id)
+        {
+            if (id != null)
+            {
+                try
+                {
+                    var cliente = await _clienteBusiness.ObtenerClientePorId(id);
+                    if (cliente != null)
+                    {
+                        return View(cliente);
+
+                    }
+                    return NotFound();
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+            }
+            return NotFound();
+        }
+
     }
 }

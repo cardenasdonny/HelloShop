@@ -67,8 +67,8 @@
 
                             </td>
                             <td>
-                                <a class="text-success" asp-action="Edit" asp-route-id="@cliente.ClienteId"><i title="Editar" class="fas fa-user-edit"></i></a> |
-                                <a asp-action="Details" asp-route-id="@cliente.ClienteId"><i title="Detalle" class="fas fa-search"></i></a> |
+                                <a href="javascript:mostrarModal('@Url.Action("Editar","Clientes",new {id=cliente.ClienteId},Context.Request.Scheme)','Editar cliente')"><i title="Editar" class="fas fa-edit"></i></a> |
+                                <a href="javascript:mostrarModal('@Url.Action("Detalle","Clientes",new{id=cliente.ClienteId},Context.Request.Scheme)','Detalle del cliente')"><i title="Detalle del cliente" class="fas fa-search"></i></a> |                                
                                 <a class="text-danger" asp-action="Delete" asp-route-id="@cliente.ClienteId"><i title="Eliminar" class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
@@ -79,6 +79,7 @@
     </div>
 </div>
 @section Scripts{
+    <script src="~/js/site.js"></script>
 
     <script src="~/js/tabla.js"></script>
     <script>

@@ -29,6 +29,14 @@ namespace HelloShop.Business.Business
             return await _context.Clientes.Include(x => x.TipoDocumento).Where(x => x.TipoDocumentoId == tipoDocumento).ToListAsync();
         }
 
+        public async Task<Cliente> ObtenerClientePorId(int? id)
+        {
+            if (id == null)
+                throw new ArgumentNullException(nameof(id));
+
+            return await _context.Clientes.Include(x => x.TipoDocumento).FirstOrDefaultAsync(x => x.ClienteId == id);
+        }
+
         public void Crear (Cliente cliente){
             if (cliente == null)
                 throw new ArgumentNullException(nameof(cliente));

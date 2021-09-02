@@ -11,6 +11,7 @@ namespace HelloShop.Business.Abstract
     {
         Task<IEnumerable<Cliente>> ObtenerClientes();
         Task<IEnumerable<Cliente>> ObtenerClientesPorTipoDocumento(int tipoDocumento);
+        Task<Cliente> ObtenerClientePorId(int? id);
         void Crear(Cliente cliente);
         Task<bool> GuardarCambios();
     }
