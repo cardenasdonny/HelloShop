@@ -16,7 +16,7 @@
             </div>
 
             <div>
-                <a class="btn btn-success" asp-action="Crear"> Crear nuevo <i class="fas fa-user-plus"></i></a>
+                <a onclick="mostrarModal('@Url.Action("Crear","Clientes",null,Context.Request.Scheme)','Crear cliente')" class="btn btn-success">Crear Cliente </a>
             </div>
             <br />
             <table class="table" id="tabla">
@@ -67,9 +67,24 @@
 
                             </td>
                             <td>
-                                <a href="javascript:mostrarModal('@Url.Action("Editar","Clientes",new {id=cliente.ClienteId},Context.Request.Scheme)','Editar cliente')"><i title="Editar" class="fas fa-edit"></i></a> |
-                                <a href="javascript:mostrarModal('@Url.Action("Detalle","Clientes",new{id=cliente.ClienteId},Context.Request.Scheme)','Detalle del cliente')"><i title="Detalle del cliente" class="fas fa-search"></i></a> |                                
-                                <a class="text-danger" asp-action="Delete" asp-route-id="@cliente.ClienteId"><i title="Eliminar" class="fas fa-trash-alt"></i></a>
+                                <a class="text-primary" href="javascript:mostrarModal('@Url.Action("Editar","Clientes",new {id=cliente.ClienteId},Context.Request.Scheme)','Editar cliente')"><i title="Editar" class="fas fa-edit"></i></a> |
+                                <a class="text-success" href="javascript:mostrarModal('@Url.Action("Detalle","Clientes",new{id=cliente.ClienteId},Context.Request.Scheme)','Detalle del cliente')"><i title="Detalle del cliente" class="fas fa-search"></i></a> |
+
+
+                                @if (cliente.Estado)
+                                {
+                                    <a class="text-danger" href="javascript:cambiarEstado('@Url.Action("CambiarEstado","Clientes",new{id=cliente.ClienteId},Context.Request.Scheme)')"><i title="Deshabilitar cliente" class="fas fa-user-slash"></i></a>
+
+                                }
+                                else
+                                {
+                                    <a class="text-danger" href="javascript:cambiarEstado('@Url.Action("CambiarEstado","Clientes",new{id=cliente.ClienteId},Context.Request.Scheme)')"><i title="Habilitar cliente" class="fas fa-user-check"></i></a>
+
+                                }
+
+
+
+
                             </td>
                         </tr>
                     }

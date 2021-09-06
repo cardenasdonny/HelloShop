@@ -43,6 +43,12 @@ namespace HelloShop.Business.Business
             cliente.Estado = true;
             _context.Add(cliente);
         }
+        public void Editar(Cliente cliente)
+        {
+            if (cliente == null)
+                throw new ArgumentNullException(nameof(cliente));      
+            _context.Update(cliente);
+        }
         public async Task<bool> GuardarCambios()
         {
             return await _context.SaveChangesAsync() > 0;

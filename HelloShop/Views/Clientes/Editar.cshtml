@@ -2,17 +2,16 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = null;
 }
 
-<h1>Edit</h1>
 
-<h4>Cliente</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+    <div class="col-md-12">
+        <form id="formulario" asp-action="Editar" onsubmit="return jQueryAjaxPost(this, 'Editar cliente', '¿Desea editar el cliente?')" autocomplete="off">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ClienteId" />
+            <input type="hidden" asp-for="Estado" />
             <div class="form-group">
                 <label asp-for="Nombres" class="control-label"></label>
                 <input asp-for="Nombres" class="form-control" />
@@ -25,7 +24,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="TipoDocumentoId" class="control-label"></label>
-                <input asp-for="TipoDocumentoId" class="form-control" />
+                <select asp-items="@ViewBag.TiposDocumento" asp-for="TipoDocumentoId" class="form-control">
+                    <option disabled>--- Seleccione ---</option>
+                </select>
                 <span asp-validation-for="TipoDocumentoId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -34,15 +35,13 @@
                 <span asp-validation-for="Documento" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Editar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
