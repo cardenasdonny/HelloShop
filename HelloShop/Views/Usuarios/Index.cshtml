@@ -1,0 +1,112 @@
+﻿@model IEnumerable<HelloShop.Models.Entities.Usuario>
+@section Styles{
+
+}
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="table-responsive">
+            <div>
+                <br />
+                <h2><b>@ViewBag.Titulo</b></h2>
+            </div>
+
+            <div>
+                <a onclick="mostrarModal('@Url.Action("Crear","Usuarios",null,Context.Request.Scheme)','Crear usuario')" class="btn btn-success">Crear Usuario </a>
+            </div>
+            <br />
+
+            @if (Model == null || Model.Count() == 0)
+            {
+                <p>No existen usuarios</p>
+
+            }
+            else
+            {
+                <table class="table" id="tabla">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Estado)
+                            </th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var usuario in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @usuario.Id
+                                </td>
+                                <td>
+                                    @usuario.Email
+                                </td>
+
+                                <td>
+                                    @if (usuario.Estado.Equals("Activo"))
+                                    {
+
+                                        <span class="badge badge-primary">Activo</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">Deshabilitado</span>
+                                    }
+
+                                </td>
+                                <td>
+                                    <a class="text-primary" href="javascript:mostrarModal('@Url.Action("Editar","Clientes",new {id=usuario.Id},Context.Request.Scheme)','Editar cliente')"><i title="Editar" class="fas fa-edit"></i></a> |
+                                    <a class="text-success" href="javascript:mostrarModal('@Url.Action("Detalle","Clientes",new{id=usuario.Id},Context.Request.Scheme)','Detalle del cliente')"><i title="Detalle del cliente" class="fas fa-search"></i></a> |
+
+
+                                    @if (usuario.Estado.Equals("Activo"))
+                                    {
+                                        <a class="text-danger" href="javascript:cambiarEstado('@Url.Action("CambiarEstado","Clientes",new{id=usuario.Id},Context.Request.Scheme)')"><i title="Deshabilitar cliente" class="fas fa-user-slash"></i></a>
+
+                                    }
+                                    else
+                                    {
+                                        <a class="text-danger" href="javascript:cambiarEstado('@Url.Action("CambiarEstado","Clientes",new{id=usuario.Id},Context.Request.Scheme)')"><i title="Habilitar cliente" class="fas fa-user-check"></i></a>
+
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/site.js"></script>
+
+    <script src="~/js/tabla.js"></script>
+    <script>
+        @if(TempData["Accion"]!=null && TempData["Accion"].ToString().Equals("Guardar"))
+        {
+            <text>
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('@TempData["Mensaje"]');
+
+            </text>
+        }
+    </script>
+
+}
+
+
+

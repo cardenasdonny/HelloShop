@@ -1,0 +1,53 @@
+﻿@model HelloShop.Business.Dtos.Usuarios.RegistrarUsuarioDto
+@{
+    Layout = null;
+}
+@section Styles{
+
+}
+
+<form asp-action="Crear" autocomplete="off" id="formulario" onsubmit="return jQueryAjaxPost(this,'Crear usuario', '¿Desea crear el usuario?');">
+
+    <div class="input-group mb-3">
+        <input asp-for="Email" class="form-control">
+        <div class="input-group-append">
+            <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+            </div>
+        </div>
+
+    </div>
+    <span asp-validation-for="Email" class="text-danger error"></span>
+    <div class="input-group mb-3">
+        <input asp-for="Password" class="form-control">
+        <div class="input-group-append">
+            <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+            </div>
+        </div>
+
+    </div>
+    <span asp-validation-for="Password" class="text-danger error"></span>
+    <div class="input-group mb-3">
+        <input asp-for="ConfirmarPassword" class="form-control">
+        <div class="input-group-append">
+            <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+            </div>
+        </div>
+
+    </div>
+    <span asp-validation-for="Email" class="text-danger error"></span>
+    <div class="row">
+        <div class="col-8">
+
+        </div>
+        <!-- /.col -->
+        <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+        </div>
+        <!-- /.col -->
+    </div>
+</form>
+<script src="~/js/site.js"></script>
+@await Html.PartialAsync("_ValidationScriptsPartial")

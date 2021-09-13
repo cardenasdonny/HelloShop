@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloShop.WEB", "HelloShop\HelloShop.WEB.csproj", "{B886BF6A-6CAD-4914-9B80-5B5C4B81A947}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloShop.DAL", "HelloShop.DAL\HelloShop.DAL.csproj", "{C4DC1CAE-A59B-40B9-9813-A0C54F81C34B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloShop.DAL", "HelloShop.DAL\HelloShop.DAL.csproj", "{C4DC1CAE-A59B-40B9-9813-A0C54F81C34B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloShop.Business", "HelloShop.Business\HelloShop.Business.csproj", "{330DD939-6801-4AEF-B855-7D9D94BDD94B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloShop.Business", "HelloShop.Business\HelloShop.Business.csproj", "{330DD939-6801-4AEF-B855-7D9D94BDD94B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloShop.Models", "HelloShop.Models\HelloShop.Models.csproj", "{D706AA68-A531-4E16-BCB0-F8C86267853E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloShop.Models", "HelloShop.Models\HelloShop.Models.csproj", "{D706AA68-A531-4E16-BCB0-F8C86267853E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

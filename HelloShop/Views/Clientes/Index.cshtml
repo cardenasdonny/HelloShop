@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HelloShop.Models.Entities.Cliente>
+﻿@model IEnumerable<HelloShop.Business.Dtos.Clientes.ClienteDetalleGestionarDto>
 @section Styles{
 
 }
@@ -29,7 +29,7 @@
                             @Html.DisplayNameFor(model => model.Email)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.TipoDocumento.Nombre)
+                            @Html.DisplayNameFor(model => model.TipoDocumento)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Documento)
@@ -49,13 +49,13 @@
                                 @cliente.Email
                             </td>
                             <td>
-                                @cliente.TipoDocumento.Nombre
+                                @cliente.TipoDocumento
                             </td>
                             <td>
                                 @cliente.Documento
                             </td>
                             <td>
-                                @if (cliente.Estado)
+                                @if (cliente.Estado.Equals("Activo"))
                                 {
 
                                     <span class="badge badge-primary">Activo</span>
@@ -71,7 +71,7 @@
                                 <a class="text-success" href="javascript:mostrarModal('@Url.Action("Detalle","Clientes",new{id=cliente.ClienteId},Context.Request.Scheme)','Detalle del cliente')"><i title="Detalle del cliente" class="fas fa-search"></i></a> |
 
 
-                                @if (cliente.Estado)
+                                @if (cliente.Estado.Equals("Activo"))
                                 {
                                     <a class="text-danger" href="javascript:cambiarEstado('@Url.Action("CambiarEstado","Clientes",new{id=cliente.ClienteId},Context.Request.Scheme)')"><i title="Deshabilitar cliente" class="fas fa-user-slash"></i></a>
 
@@ -81,10 +81,6 @@
                                     <a class="text-danger" href="javascript:cambiarEstado('@Url.Action("CambiarEstado","Clientes",new{id=cliente.ClienteId},Context.Request.Scheme)')"><i title="Habilitar cliente" class="fas fa-user-check"></i></a>
 
                                 }
-
-
-
-
                             </td>
                         </tr>
                     }

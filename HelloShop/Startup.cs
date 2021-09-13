@@ -1,9 +1,11 @@
-using HelloShop.Business.Abstract;
+锘縰sing HelloShop.Business.Abstract;
 using HelloShop.Business.Business;
 using HelloShop.DAL;
+using HelloShop.Models.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,19 +30,19 @@ namespace HelloShop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            //Conexi髇 DB
+            //Conexi贸n DB
 
             
-            //Conexi髇 SQl Server
-            var conexion = Configuration["ConnectionStrings:SqlServer"]; //Cadena de conexi髇
+            //Conexi贸n SQl Server
+            var conexion = Configuration["ConnectionStrings:SqlServer"]; //Cadena de conexi贸n
                 services.AddDbContext<AppDbContext>(option =>
                 option.UseSqlServer(conexion)
             );
             
             /*
             
-            // Conexi髇 MYSQL
-            var conexion = Configuration["ConnectionStrings:MySql"]; //Cadena de conexi髇
+            // Conexi贸n MYSQL
+            var conexion = Configuration["ConnectionStrings:MySql"]; //Cadena de conexi贸n
                 services.AddDbContext<AppDbContext>(option =>
                 option.UseMySql(conexion, ServerVersion.AutoDetect(conexion))
             );
@@ -48,7 +50,27 @@ namespace HelloShop
 
             services.AddScoped<IClienteBusiness, ClienteBusiness>();
             services.AddScoped<ITipoDocumentoBusiness, TipoDocumentoBusiness>();
+            services.AddScoped<IUsuarioBusiness, UsuarioBusiness>();
 
+
+            //Indentity
+
+            services.AddIdentity<Usuario, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+              //.AddDefaultUI()
+              .AddDefaultTokenProviders() //para trabajar con la confirmaci锟絥 de email
+              .AddEntityFrameworkStores<AppDbContext>();
+              //.AddClaimsPrincipalFactory<UsuarioClaimsPrincipalFactory>();
+
+            //configuraci锟絥 del password
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 5;
+                options.User.RequireUniqueEmail = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

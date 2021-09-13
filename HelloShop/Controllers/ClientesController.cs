@@ -1,4 +1,5 @@
 ﻿using HelloShop.Business.Abstract;
+using HelloShop.Business.Dtos.Clientes;
 using HelloShop.Models.Entities;
 using HelloShop.WEB.Helpers;
 using Microsoft.AspNetCore.Mvc;
@@ -36,13 +37,13 @@ namespace HelloShop.WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Crear(Cliente cliente)
+        public async Task<IActionResult> Crear(RegistroClienteDto registroClienteDto)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _clienteBusiness.Crear(cliente);
+                    _clienteBusiness.Crear(registroClienteDto);
                     var guardar = await _clienteBusiness.GuardarCambios();
                     if (guardar)
                     {
@@ -57,7 +58,7 @@ namespace HelloShop.WEB.Controllers
                 }
             }           
             ViewBag.TiposDocumento = new SelectList(await _tipoDocumentoBusiness.ObtenerTiposDocumento(), "TipoDocumentoId", "Nombre");
-            return Json(new { isValid = false, tipoError = "warning", error = "Debe diligenciar los campos requeridos", html = Helper.RenderRazorViewToString(this, "Crear", cliente) });
+            return Json(new { isValid = false, tipoError = "warning", error = "Debe diligenciar los campos requeridos", html = Helper.RenderRazorViewToString(this, "Crear", registroClienteDto) });
         }
         [NoDirectAccessAttribute]
         public async Task<IActionResult> Detalle(int ? id)
