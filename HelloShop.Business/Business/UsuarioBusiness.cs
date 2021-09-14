@@ -33,7 +33,7 @@ namespace HelloShop.Business.Business
             if (resultado.Errors.Any())
                 return "ErrorPassword";
             if (resultado.Succeeded)
-                return usuario.Id;
+                 return usuario.Id;
             return null;
 
         }
