@@ -2,6 +2,7 @@
 using HelloShop.Business.Dtos.Usuarios;
 using HelloShop.Models.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,24 @@ namespace HelloShop.Business.Business
         public UsuarioBusiness(UserManager<Usuario> userManager)
         {
             _userManager = userManager;
+        }
+
+        public async Task<IEnumerable<UsuarioDto>> ObtenerListaUsuarios()
+        {
+            List<UsuarioDto> listaUsuarioDtos = new();
+            var usuarios = await _userManager.Users.ToListAsync();
+            usuarios.ForEach(usuario =>
+            {
+                UsuarioDto usuarioDto = new()
+                {
+                    Id = usuario.Id,
+                    Email = usuario.Email,
+                    Estado = usuario.Estado
+                };
+                listaUsuarioDtos.Add(usuarioDto);
+
+            });
+            return listaUsuarioDtos;
         }
 
         public async Task<string>Crear(RegistrarUsuarioDto registrarUsuarioDto)

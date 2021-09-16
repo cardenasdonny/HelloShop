@@ -11,5 +11,6 @@ namespace HelloShop.Business.Abstract
     {
         Task<UsuarioDto> ObtenerUsuarioDtoPorEmail(string email);
         Task<string> Crear(RegistrarUsuarioDto registrarUsuarioDto);
+        Task<IEnumerable<UsuarioDto>> ObtenerListaUsuarios();
     }
 }
