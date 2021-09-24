@@ -56,7 +56,7 @@ namespace HelloShop
             //Indentity
 
             services.AddIdentity<Usuario, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
-              //.AddDefaultUI()
+              .AddDefaultUI()
               .AddDefaultTokenProviders() //para trabajar con la confirmaci�n de email
               .AddEntityFrameworkStores<AppDbContext>();
               //.AddClaimsPrincipalFactory<UsuarioClaimsPrincipalFactory>();
