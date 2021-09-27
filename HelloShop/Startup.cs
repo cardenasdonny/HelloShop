@@ -2,8 +2,10 @@
 using HelloShop.Business.Business;
 using HelloShop.DAL;
 using HelloShop.Models.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -71,6 +73,20 @@ namespace HelloShop
                 options.Password.RequiredLength = 5;
                 options.User.RequireUniqueEmail = true;
             });
+
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = new PathString("/Admin/NoAutorizado");
+                options.Cookie.Name = "Cookie";
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(720);
+                options.LoginPath = new PathString("/Usuarios/Login");
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+                options.SlidingExpiration = true;
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,8 +105,8 @@ namespace HelloShop
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
-
+            app.UseRouting();            
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

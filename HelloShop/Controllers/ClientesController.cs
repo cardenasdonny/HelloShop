@@ -2,6 +2,7 @@
 using HelloShop.Business.Dtos.Clientes;
 using HelloShop.Models.Entities;
 using HelloShop.WEB.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace HelloShop.WEB.Controllers
 {
+    
     public class ClientesController : Controller
     {
         private readonly IClienteBusiness _clienteBusiness;
@@ -21,12 +23,15 @@ namespace HelloShop.WEB.Controllers
             _clienteBusiness = clienteBusiness;
             _tipoDocumentoBusiness = tipoDocumentoBusiness;
         }
+
+        [Authorize(Roles = "Administrador, Usuario")]
         public async Task<IActionResult> Index()
         {
             ViewBag.Titulo = "Gestión de Clientes";
             return View(await _clienteBusiness.ObtenerClientes());
         }
 
+        [Authorize(Roles = "Administrador")]
         [NoDirectAccessAttribute]
         [HttpGet]
         public async Task<IActionResult> Crear()
@@ -35,6 +40,7 @@ namespace HelloShop.WEB.Controllers
             ViewBag.TiposDocumento = new SelectList(await _tipoDocumentoBusiness.ObtenerTiposDocumento(), "TipoDocumentoId", "Nombre");
             return View();
         }
+        [Authorize(Roles = "Administrador")]
 
         [HttpPost]
         public async Task<IActionResult> Crear(RegistroClienteDto registroClienteDto)
@@ -60,6 +66,7 @@ namespace HelloShop.WEB.Controllers
             ViewBag.TiposDocumento = new SelectList(await _tipoDocumentoBusiness.ObtenerTiposDocumento(), "TipoDocumentoId", "Nombre");
             return Json(new { isValid = false, tipoError = "warning", error = "Debe diligenciar los campos requeridos", html = Helper.RenderRazorViewToString(this, "Crear", registroClienteDto) });
         }
+        [Authorize(Roles = "Administrador, Usuario")]
         [NoDirectAccessAttribute]
         public async Task<IActionResult> Detalle(int ? id)
         {
@@ -85,6 +92,7 @@ namespace HelloShop.WEB.Controllers
             }
             return Json(new { isValid = false, tipoError = "error", mensaje = "Error interno" });
         }
+        [Authorize(Roles = "Administrador")]
         [NoDirectAccessAttribute]
         [HttpGet]
         public async Task<IActionResult> Editar(int? id)
@@ -111,6 +119,7 @@ namespace HelloShop.WEB.Controllers
             }
             return NotFound();
         }
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public async Task<IActionResult> Editar(int? id, Cliente cliente)
         {
@@ -138,7 +147,7 @@ namespace HelloShop.WEB.Controllers
             ViewBag.TiposDocumento = new SelectList(await _tipoDocumentoBusiness.ObtenerTiposDocumento(), "TipoDocumentoId", "Nombre");
             return Json(new { isValid = false, tipoError = "warning", error = "Debe diligenciar los campos requeridos", html = Helper.RenderRazorViewToString(this, "Editar", cliente) });
         }
-
+        [Authorize(Roles = "Administrador")]
         [NoDirectAccessAttribute]
         public async Task<IActionResult> CambiarEstado(int? id)
         {

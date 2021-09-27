@@ -2,8 +2,11 @@
 using HelloShop.Business.Dtos.Usuarios;
 using HelloShop.Models.Entities;
 using HelloShop.WEB.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +20,16 @@ namespace HelloShop.WEB.Controllers
         private readonly IUsuarioBusiness _usuarioBusiness;
         private readonly SignInManager<Usuario> _signInManager;
         private readonly UserManager<Usuario> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UsuariosController(IUsuarioBusiness usuarioBusiness, SignInManager<Usuario> signInManager, UserManager<Usuario> userManager)
+        public UsuariosController(IUsuarioBusiness usuarioBusiness, SignInManager<Usuario> signInManager, UserManager<Usuario> userManager, RoleManager<IdentityRole> roleManager)
         {
             _usuarioBusiness = usuarioBusiness;
             _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
+        [Authorize(Roles ="Administrador")]
         public async Task<IActionResult> Index()
         {
             ViewBag.Titulo = "Gestión de Usuarios";
@@ -87,6 +93,11 @@ namespace HelloShop.WEB.Controllers
 
 
             return View();
+        }
+        public async Task<IActionResult> CerrarSesion()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Usuarios");
         }
 
         public IActionResult OlvidePassword()
@@ -156,6 +167,53 @@ namespace HelloShop.WEB.Controllers
                 }
             }
             return View();
+        }
+
+        public async Task<IActionResult> Editar(string id)
+        {
+            var usuario = await _userManager.FindByIdAsync(id);
+            if(usuario== null)
+                return Json(new { isValid = false, error = "No se encuentra el registro" });
+
+            ViewBag.ListaRoles = new SelectList(await _roleManager.Roles.ToListAsync(), "Name", "Name");
+            var roles = await _userManager.GetRolesAsync(usuario);
+            UsuarioAsignarRol usuarioAsignarRol = new()
+            {
+                Id = usuario.Id,
+                Email = usuario.Email,
+                Estado = usuario.Estado,
+                Rol = roles.FirstOrDefault()
+            };            
+            
+            return View(usuarioAsignarRol);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Editar(string id, UsuarioAsignarRol usuarioAsignarRol)
+        {
+            if(id!= usuarioAsignarRol.Id)
+                return Json(new { isValid = false, tipoError = "danger", error = "Error al actualizar el registro" });
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var usuario = await _userManager.FindByIdAsync(usuarioAsignarRol.Id);
+                    var resultado = await _userManager.AddToRoleAsync(usuario, usuarioAsignarRol.Rol);
+                    if(resultado.Succeeded)
+                        return Json(new { isValid = true, operacion = "editar" });
+                    else
+                        return Json(new { isValid = false, tipoError = "danger", error = "Error al actualizar el registro" });
+
+
+                }
+                catch (Exception)
+                {
+
+                    return Json(new { isValid = false, tipoError = "danger", error = "Error al actualizar el registro" });
+                }
+            }
+            ViewBag.ListaRoles = new SelectList(await _roleManager.Roles.ToListAsync(), "Name", "Name");
+            return Json(new { isValid = false, tipoError = "danger", error = "Error al actualizar el registro" });
         }
 
     }
