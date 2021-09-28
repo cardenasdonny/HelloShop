@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloShop.Business", "Hello
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloShop.Models", "HelloShop.Models\HelloShop.Models.csproj", "{D706AA68-A531-4E16-BCB0-F8C86267853E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloShop.API", "HelloShop.API\HelloShop.API.csproj", "{F55B1661-90A1-4431-807A-DC2FBC2B3542}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D706AA68-A531-4E16-BCB0-F8C86267853E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D706AA68-A531-4E16-BCB0-F8C86267853E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D706AA68-A531-4E16-BCB0-F8C86267853E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F55B1661-90A1-4431-807A-DC2FBC2B3542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F55B1661-90A1-4431-807A-DC2FBC2B3542}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F55B1661-90A1-4431-807A-DC2FBC2B3542}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F55B1661-90A1-4431-807A-DC2FBC2B3542}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
